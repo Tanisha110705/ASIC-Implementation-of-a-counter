@@ -4,14 +4,14 @@ module counter_test;
 
   initial begin
     clk = 0;
-    rst = 0;     // Initial state (0)
+    rst = 0;     // Initial state
     #10;
-    rst = 1;     // Transition 1: 0 -> 1
+    rst = 1;     // Reset active: 0 -> 1
     #150;
-    rst = 0;     // Transition 2: 1 -> 0 (completes toggle coverage)
+    rst = 0;     // Release reset: 1 -> 0
     #20;
-    rst = 1;     // Release reset to resume counting
-    #20;
+    rst = 1;     // Re-assert reset: 0 -> 1
+    #2600;       // 260 clock cycles: allows count[7:0] to toggle all 8 bits
     $finish;
   end
 
